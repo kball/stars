@@ -1,23 +1,31 @@
-class Star < ActiveRecord::Base
-  default_scope :include => :seconds
+require 'second'
+class Star
+  include DataMapper::Resource
+  property :id, Serial
+  property :reason, String
+  property :created_at, Time
+  property :updated_at, Time
 
-  belongs_to :from, :class_name => 'User'
-  belongs_to :to,   :class_name => 'User'
+  #default_scope :include => :seconds
 
-  has_many :seconds
+  belongs_to :from, 'User'
+  belongs_to :to,   'User'
 
-  named_scope :during, lambda { |range|
+  has n, :seconds
+
+  def self.during(range)
     start = range.first.to_time.utc
     finish = range.last.to_time.utc
-    {:conditions => {:created_at => start..finish}}
-  }
-  named_scope :recent, lambda { |count|
+    all(:created_at.gt => start, :created_at.lt => finish)
+  end
+
+  def self.recent(count = nil)
     count ||= 10
-    {:order => 'id desc', :limit => count}
-  }
+    all(:order => :id.desc, :limit => count)
+  end
 
   def self.past_week_by_user
-    Star.all(:conditions => {:created_at => 1.week.ago..Time.now}).
+    Star.all(:created_at.gt => 1.week.ago).
          group_by(&:to).
          sort_by {|(user, stars)| stars.size}.reverse
   end
@@ -34,7 +42,7 @@ class Star < ActiveRecord::Base
     1 + num_seconds
   end
 
-  after_create do |star|
-    Mailer.deliver_star(star)
-  end
+  #after_create do |star|
+  #  Mailer.deliver_star(star)
+  #end
 end

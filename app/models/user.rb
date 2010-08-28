@@ -1,9 +1,21 @@
-class User < ActiveRecord::Base
-  acts_as_authentic
+class User
+  include DataMapper::Resource
 
-  has_many :stars, :foreign_key => :to_id
+  property :id, Serial
+  property :name, String
+  property :email, String
+  property :facebook_uid, Integer, :min => 1, :max => 2**64 - 1
+  property :facebook_session_key, String
+  property :persistence_token, String
+  property :created_at, Time
+  property :updated_at, Time
+  property :active, Boolean, :default => true
 
-  named_scope :active, :conditions => {:active => true}
+  has n, :stars, :child_key => :to_id
+
+  def self.active
+    all(:active => true)
+  end
 
   Superstar = Struct.new(:user, :count, :seconds, :stars)
   def self.superstars_for(week, limit=3)
@@ -28,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def others
-    User.active.all(:conditions => ["`users`.`id` != ?", self.id])
+    User.active.all(:id.not => self.id)
   end
 
   def second(star)

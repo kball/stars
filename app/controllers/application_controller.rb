@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   filter_parameter_logging :fb_sig_friends
 
-  before_filter :require_login
+  #before_filter :require_login
   before_filter :add_stylesheets
 
   helper :all
@@ -11,7 +11,7 @@ private
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
-    @current_user_session = UserSession.find
+    @current_user_session = nil
   end
 
   def current_user

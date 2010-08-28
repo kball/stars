@@ -39,7 +39,7 @@ module ApplicationHelper
                            :size => :square}
   def photo(user, opts={})
     link_to(
-      fb_profile_pic(user.facebook_uid, DEFAULT_PHOTO_OPTIONS.merge(opts)),
+      facebook_profile_pic(user.facebook_uid, DEFAULT_PHOTO_OPTIONS.merge(opts)),
       new_star_url(:to => user.id)
     )
   end

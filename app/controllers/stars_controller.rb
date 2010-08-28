@@ -1,6 +1,6 @@
 class StarsController < ApplicationController
   def index
-    @stars = Star.recent(10)
+    @stars = Star.recent(10).to_a
     this_week = Date.today.beginning_of_week
     last_week = this_week - 1.week
     @current_superstars = User.superstars_for(this_week, 5)
