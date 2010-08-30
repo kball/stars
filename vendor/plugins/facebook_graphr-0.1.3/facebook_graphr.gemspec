@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{facebook_graphr}
-  s.version = "0.1.1"
+  s.version = "0.1.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kevin Ball"]
-  s.date = %q{2010-08-28}
+  s.date = %q{2010-08-30}
   s.description = %q{A lightweight gem for dealing with Facebook's new Open Graph API}
   s.email = %q{kmball11@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "facebook_graphr.gemspec",
      "init.rb",
      "lib/facebook_graphr.rb",
+     "lib/facebook_graphr/controller.rb",
      "lib/facebook_graphr/helpers.rb",
      "rails/init.rb",
      "test/helper.rb",
