@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
   config.action_mailer.default_url_options ||= {:host => 'localhost:3000'}
 end
-
+FacebookGraphr.setup('config/facebook.yml')
 ActionView::Helpers::AssetTagHelper.
     register_javascript_expansion :jquery => [
   'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
