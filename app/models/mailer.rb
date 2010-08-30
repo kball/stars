@@ -1,5 +1,5 @@
-ActionMailer::Base.default_content_type = 'text/html'
-
+#ActionMailer::Base.default_content_type = 'text/html'
+=begin
 class Mailer < ActionMailer::Base
   def star(star)
     subject "#{star.to.name} got a star!"
@@ -25,3 +25,4 @@ class Mailer < ActionMailer::Base
          :num_froms => num_froms
   end
 end
+=end

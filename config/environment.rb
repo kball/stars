@@ -20,7 +20,6 @@ Rails::Initializer.run do |config|
   # Skip plugin locators
   config.plugin_locators -= [Rails::Plugin::GemLocator]
 
-  config.action_mailer.default_url_options ||= {:host => 'localhost:3000'}
 end
 FacebookGraphr.setup('config/facebook.yml')
 ActionView::Helpers::AssetTagHelper.
